@@ -2,17 +2,19 @@ package stellar;
 
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.junit4.DisplayName;
-import jdk.jfr.Name;
+import org.hamcrest.MatcherAssert;
 import org.junit.After;
 import org.junit.Test;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.page;
-import static com.codeborne.selenide.WebDriverRunner.url;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static stellar.MainPageObject.URL;
 
 public class LoginTest {
+
+    public final String EMAIL = "test_polina@test.com";
+    public final String PASSWORD = "Test1234";
 
     @After
     public void tearDown() {
@@ -26,10 +28,9 @@ public class LoginTest {
         MainPageObject mainPageObject = open (URL, MainPageObject.class);
         mainPageObject.clickLoginButton ();
         LoginPageObject loginPageObject = page (LoginPageObject.class);
-        loginPageObject.login (loginPageObject.EMAIL, loginPageObject.PASSWORD);
+        loginPageObject.login (EMAIL, PASSWORD);
         loginPageObject.waitAfterEntry ();
-        assertEquals (url (), URL);
-
+        MatcherAssert.assertThat (mainPageObject.checkCreateOrderButton(), notNullValue());
     }
 
     @Test
@@ -38,9 +39,9 @@ public class LoginTest {
         MainPageObject mainPageObject = open (URL, MainPageObject.class);
         mainPageObject.clickPersonalAccountButton ();
         LoginPageObject loginPageObject = page (LoginPageObject.class);
-        loginPageObject.login (loginPageObject.EMAIL, loginPageObject.PASSWORD);
+        loginPageObject.login (EMAIL, PASSWORD);
         loginPageObject.waitAfterEntry ();
-        assertEquals (url (), URL);
+        MatcherAssert.assertThat (mainPageObject.checkCreateOrderButton(), notNullValue());
     }
 
     @Test
@@ -49,9 +50,10 @@ public class LoginTest {
         RegistrationPageObject registrationPageObject = open (RegistrationPageObject.URL, RegistrationPageObject.class);
         registrationPageObject.clickEntryButton ();
         LoginPageObject loginPageObject = page (LoginPageObject.class);
-        loginPageObject.login (loginPageObject.EMAIL, loginPageObject.PASSWORD);
+        loginPageObject.login (EMAIL, PASSWORD);
         loginPageObject.waitAfterEntry ();
-        assertEquals (url (), URL);
+        MainPageObject mainPageObject = page (MainPageObject.class);
+        MatcherAssert.assertThat (mainPageObject.checkCreateOrderButton(), notNullValue());
     }
 
     @Test
@@ -60,9 +62,9 @@ public class LoginTest {
         ForgotPageObject forgotPageObject = open (ForgotPageObject.FORGOT_PASSWORD_URL, ForgotPageObject.class);
         forgotPageObject.clickEntryButton ();
         LoginPageObject loginPageObject = page (LoginPageObject.class);
-        loginPageObject.login (loginPageObject.EMAIL, loginPageObject.PASSWORD);
+        loginPageObject.login (EMAIL, PASSWORD);
         loginPageObject.waitAfterEntry ();
-        assertEquals (url (), URL);
+        MainPageObject mainPageObject = page (MainPageObject.class);
+        MatcherAssert.assertThat (mainPageObject.checkCreateOrderButton(), notNullValue());
     }
-
 }

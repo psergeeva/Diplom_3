@@ -7,8 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 import java.time.Duration;
-
-import static com.codeborne.selenide.WebDriverRunner.url;
+import static com.codeborne.selenide.Condition.enabled;
 
 public class ProfilePageObject {
 
@@ -38,8 +37,12 @@ public class ProfilePageObject {
         logOutButton.click ();
     }
 
+    @Step("If Lo out button exists")
+    public boolean isLogOutButtonExists() {
+        return logOutButton.shouldBe(enabled).exists();}
+
     @Step("Wait after transition to the profile page")
-    public void waitAfterTransition() {
+    public void waitAfterTransition () {
         logOutButton.shouldBe (Condition.visible, Duration.ofSeconds (5000));
     }
 }

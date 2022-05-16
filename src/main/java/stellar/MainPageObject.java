@@ -19,6 +19,9 @@ public class MainPageObject {
     @FindBy(how = How.XPATH, using = ".//p[text()='Личный Кабинет']")
     private SelenideElement personalProfileButton;
 
+    @FindBy(how = How.XPATH, using = ".//button[text()='Оформить заказ']")
+    private SelenideElement createOrderButton;
+
     @FindBy(how = How.XPATH, using = ".//h1[text()='Соберите бургер']")
     private SelenideElement createBurgerTitle;
 
@@ -74,14 +77,19 @@ public class MainPageObject {
         personalProfileButton.click ();
     }
 
-    @Step("Click the fillings button and check the sign")
+    @Step("Click create order button")
+    public boolean checkCreateOrderButton() {
+        return createOrderButton.isEnabled();
+    }
+
+    @Step("Click the fillings button")
     public boolean clickFillingButtonAndCheckTheSign() {
         fillingsButton.click ();
         fillingForDrop.dragAndDropTo (orderBasket);
         return fillingInBasket.isDisplayed ();
     }
 
-    @Step("Click the sauces button and check the sign")
+    @Step("Click the sauces button")
     public boolean clickSaucesButtonAndCheckTheSign() {
         lastIngredient.scrollIntoView (true);
         saucesButton.click ();
@@ -89,7 +97,7 @@ public class MainPageObject {
         return sauceInBasket.isDisplayed ();
     }
 
-    @Step("Click the buns button and check the sign")
+    @Step("Click the buns button")
     public boolean clickBunsButtonCheckTheSign() {
         lastIngredient.scrollIntoView (true);
         bunsButton.click ();

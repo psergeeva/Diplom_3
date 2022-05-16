@@ -5,15 +5,11 @@ import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
-import static com.codeborne.selenide.WebDriverRunner.url;
+import static com.codeborne.selenide.Condition.enabled;
 
 public class LoginPageObject {
 
     public static final String URL_LOGIN = "https://stellarburgers.nomoreparties.site/login";
-
-    public final String EMAIL = "test_polina@test.com";
-    public final String PASSWORD = "Test1234";
 
     @FindBy(how = How.XPATH, using = ".//input[@name='name']")
     public SelenideElement emailField;
@@ -46,14 +42,14 @@ public class LoginPageObject {
         clickEntryButton ();
     }
 
-    public boolean loginPageIsShown() {
-        return url ().equals ("https://stellarburgers.nomoreparties.site/login");
-    }
-
     @Step("Wait after login")
     public void waitAfterEntry() {
         entryButton.shouldBe (Condition.hidden);
     }
 
+    @Step("If entry button exists")
+    public boolean isEntryButtonExists() {
+        return entryButton.shouldBe(enabled).exists();
+    }
 
 }

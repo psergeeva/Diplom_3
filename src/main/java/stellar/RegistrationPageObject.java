@@ -31,11 +31,6 @@ public class RegistrationPageObject {
     @FindBy(how = How.CLASS_NAME, using = "Auth_link__1fOlj")
     private SelenideElement entryButton;
 
-    public final String NAME = RandomStringUtils.randomAlphabetic (10);
-    public final String EMAIL = RandomStringUtils.randomAlphabetic (10) + "@test.com";
-    public final String PASSWORD = "123456";
-    public final String INVALID_PASSWORD = "12345";
-
     @Step("Set name")
     public void setName(String name) {
         nameFieldForRegistration.setValue (name);
@@ -62,7 +57,6 @@ public class RegistrationPageObject {
         setEmail (email);
         setPassword (password);
         clickRegistrationButton ();
-
     }
 
     @Step("Wait after registration")
@@ -70,7 +64,7 @@ public class RegistrationPageObject {
         registrationButton.shouldBe (Condition.hidden);
     }
 
-    @Step("Check if login page is shown")
+    @Step("True/false value for login page")
     public boolean isOpenLoginPage() {
         return url ().equals ("https://stellarburgers.nomoreparties.site/login");
     }
